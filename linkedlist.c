@@ -18,10 +18,12 @@
 #include <stdint.h>
 #include <string.h>
 
+typedef uint8_t byte;
+
 struct LinkedList_Node {
 	LinkedList_Node* next;
 	LinkedList_Node* prev;
-	void* data;
+	byte data[];
 };
 
 struct LinkedList_list {
@@ -56,12 +58,15 @@ void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size, bool
 	{
 		// this point to the address should be used for node's data 
 		// node->data = node->prev + sizeof(void*);
-		node->data = malloc(size);
+		// node->data = malloc(size);
 		memcpy(node->data, data, size);
 	}
 
 	else
-		node->data = data;
+	{
+		void* ptr = node->data;
+		ptr = data;
+	}
 
 	if( list->length != 0 )
 	{
@@ -146,11 +151,13 @@ void LinkedList_clean(LinkedList_list *list)
 {
 	LinkedList_Node *current_node = list->head;
 	LinkedList_Node *next_node = list->head;
+	bool data_is_inside_node = ( (void*)current_node->data == ((void*)current_node + 2 * sizeof(void*)) ); 
 
 	while((current_node = next_node) != NULL)
 	{
 		next_node = next_node->next;
-		free(current_node->data);
+		if( data_is_inside_node == false )
+			free(current_node->data);
 		free(current_node);
 	}
 
