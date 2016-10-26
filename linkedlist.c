@@ -137,17 +137,21 @@ bool LinkedList_remove_from(LinkedList_Node* from, LinkedList_Node* to)
 	return true;
 }
 
-void LinkedList_clean(LinkedList_list *list)
+void LinkedList_clean(LinkedList_list *list, bool heap_data)
 {
 	LinkedList_Node *current_node = list->head;
 	LinkedList_Node *next_node = list->head;
-	bool data_is_inside_node = ( (void*)current_node->data == ((void*)current_node + 2 * sizeof(void*)) ); 
 
 	while((current_node = next_node) != NULL)
 	{
 		next_node = next_node->next;
-		if( data_is_inside_node == false )
-			free(current_node->data);
+
+		if( heap_data == true )
+		{
+			// get the saved address from the array of bytes
+			free( (void*)*(uintptr_t*)(current_node->data) );
+		}
+
 		free(current_node);
 	}
 

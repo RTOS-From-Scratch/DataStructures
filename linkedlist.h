@@ -38,6 +38,6 @@ void* LinkedList_next(LinkedList_Node* node);
 void* LinkedList_prev(LinkedList_Node* node);
 bool LinkedList_remove(LinkedList_Node* node);
 bool LinkedList_remove_from(LinkedList_Node* from, LinkedList_Node* to);
-void LinkedList_clean(LinkedList_list *list);
+void LinkedList_clean(LinkedList_list *list, bool is_heap);
 
 #endif /*LINKEDLIST_H_*/
