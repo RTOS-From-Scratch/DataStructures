@@ -44,26 +44,18 @@ LinkedList_list* LinkedList_new()
 
 void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size )
 {
-	LinkedList_Node* node = malloc(sizeof(LinkedList_Node) + size);
-	// printf("%lu\n", sizeof(LinkedList_Node) + size);
-	// printf("%lu\n", sizeof(2 * sizeof(LinkedList_list *)) + size);
-	// printf("%p %p %p %p\n", &node->next, &node->prev, ((void*)node + 2 * sizeof(void*)), &node->data);
+	LinkedList_Node* node;
 
-	if( node == NULL )
-		return NULL;
-
-	if( data_local == true )
+	if( size != 0 )
 	{
-		// this point to the address should be used for node's data 
-		// node->data = node->prev + sizeof(void*);
-		// node->data = malloc(size);
+		node = malloc(sizeof(LinkedList_Node) + size);
 		memcpy(node->data, data, size);
 	}
-
+	
 	else
 	{
-		void* ptr = node->data;
-		ptr = data;
+		node = malloc(sizeof(LinkedList_Node) + sizeof(void*));
+		memcpy(node->data, &data, sizeof(void*));
 	}
 
 	if( list->length != 0 )
