@@ -27,7 +27,7 @@ struct LinkedList_Node {
 };
 
 struct LinkedList_list {
-	uint32_t length;
+	size_t length;
 	LinkedList_Node *head;      /* List head, dummy node. */
     LinkedList_Node *tail;      /* List tail, dummy node. */
 };
