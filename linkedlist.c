@@ -122,16 +122,24 @@ void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size )
 	return node;
 }
 
-// TODO:
-void* LinkedList_pop_back( LinkedList_list* list )
+void* LinkedList_pop_back( LinkedList_List* list )
 {
+	LinkedList_Node* node = list->tail;
 
+	list->tail = list->tail->prev;
+	list->tail->next = NULL;
+
+	return node;
 }
 
-// TODO:
-void* LinkedList_pop_front( LinkedList_list* list )
+void* LinkedList_pop_front( LinkedList_List* list )
 {
+	LinkedList_Node* node = list->head;
 
+	list->head = list->head->next;
+	list->head->prev = NULL;
+
+	return node;
 }
 
 void* LinkedList_get_data(LinkedList_Node *node)
