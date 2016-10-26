@@ -96,10 +96,30 @@ void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size )
 	return node;
 }
 
-// TODO:
-void* LinkedList_push_front( LinkedList_list* list, void* data, size_t size )
+void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size )
 {
+	LinkedList_Node* node = LinkedList_construct_node(data, size);
 
+	if( node == NULL )
+		return NULL;
+
+	if( list->length != 0 )
+	{
+		list->head->prev = node;
+		node->next = list->head;
+	}
+
+	else
+	{
+		list->tail = node;
+		node->prev = NULL;
+	}
+
+	list->head = node;
+	node->prev = NULL;
+	list->length++;
+
+	return node;
 }
 
 // TODO:
