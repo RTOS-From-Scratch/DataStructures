@@ -42,9 +42,7 @@ LinkedList_list* LinkedList_new()
 	return list;
 }
 
-// #include <stdio.h>
-
-void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size, bool data_local )
+void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size )
 {
 	LinkedList_Node* node = malloc(sizeof(LinkedList_Node) + size);
 	// printf("%lu\n", sizeof(LinkedList_Node) + size);
