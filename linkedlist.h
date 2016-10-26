@@ -28,6 +28,7 @@ typedef struct LinkedList_list LinkedList_list;
 LinkedList_list* LinkedList_new();
 
 void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size );
+void* LinkedList_push_front( LinkedList_list* list, void* data, size_t size );
 void* LinkedList_pop_back( LinkedList_list* list );
 void* LinkedList_pop_front( LinkedList_list* list );
 size_t LinkedList_get_length( LinkedList_list *list );

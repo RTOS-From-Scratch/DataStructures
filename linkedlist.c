@@ -78,7 +78,7 @@ void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size )
 }
 
 // TODO:
-void* LinkedList_push_front( LinkedList_list* list, void* data, size_t size, bool is_data_local )
+void* LinkedList_push_front( LinkedList_list* list, void* data, size_t size )
 {
 
 }
