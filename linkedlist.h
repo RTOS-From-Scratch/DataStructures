@@ -23,22 +23,22 @@
 #include <stdbool.h>
 
 typedef struct LinkedList_Node LinkedList_Node;
-typedef struct LinkedList_list LinkedList_list;
+typedef struct LinkedList_List LinkedList_List;
 
-LinkedList_list* LinkedList_new();
+LinkedList_List* LinkedList_new();
 
-void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size );
-void* LinkedList_push_front( LinkedList_list* list, void* data, size_t size );
-void* LinkedList_pop_back( LinkedList_list* list );
-void* LinkedList_pop_front( LinkedList_list* list );
-size_t LinkedList_get_length( LinkedList_list *list );
+void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size );
+void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size );
+void* LinkedList_pop_back( LinkedList_List* list );
+void* LinkedList_pop_front( LinkedList_List* list );
+size_t LinkedList_get_length( LinkedList_List *list );
 void* LinkedList_get_data(LinkedList_Node *node);
-void* LinkedList_get_begin(LinkedList_list* list);
-void* LinkedList_get_last(LinkedList_list* list);
+void* LinkedList_get_begin(LinkedList_List* list);
+void* LinkedList_get_last(LinkedList_List* list);
 void* LinkedList_next(LinkedList_Node* node);
 void* LinkedList_prev(LinkedList_Node* node);
-void LinkedList_clean(LinkedList_list *list, bool is_heap);
 bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_data);
 bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data);
+void LinkedList_clean(LinkedList_List *list, bool is_heap);
 
 #endif /*LINKEDLIST_H_*/

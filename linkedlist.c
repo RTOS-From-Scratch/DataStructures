@@ -26,7 +26,7 @@ struct LinkedList_Node {
 	byte data[];
 };
 
-struct LinkedList_list {
+struct LinkedList_List {
 	size_t length;
 	LinkedList_Node *head;      /* List head, dummy node. */
     LinkedList_Node *tail;      /* List tail, dummy node. */
@@ -34,8 +34,9 @@ struct LinkedList_list {
 
 static LinkedList_Node* LinkedList_construct_node(void* data, size_t size);
 
+LinkedList_List* LinkedList_new()
 {
-	LinkedList_list* list = malloc( sizeof(LinkedList_list) );
+	LinkedList_List* list = malloc( sizeof(LinkedList_List) );
 	list->length = 0;
 	list->head = NULL;
 	list->tail = NULL;
@@ -147,17 +148,17 @@ void* LinkedList_get_data(LinkedList_Node *node)
 	return node->data;
 }
 
-void* LinkedList_get_begin(LinkedList_list* list)
+void* LinkedList_get_begin(LinkedList_List* list)
 {
 	return list->head;
 }
 
-void* LinkedList_get_last(LinkedList_list* list)
+void* LinkedList_get_last(LinkedList_List* list)
 {
 	return list->tail;
 }
 
-size_t LinkedList_get_length( LinkedList_list *list )
+size_t LinkedList_get_length( LinkedList_List *list )
 {
 	return list->length;
 }
@@ -176,14 +177,12 @@ bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_d
 {
 	if( list->length == 1 )
 	{
-		// printf("%d\n", *(int*)list->head->data);
 		list->head = NULL;
 		list->tail = NULL;
 	}
 
 	else if( node == list->head )
 	{
-		// printf("%d\n", *(int*)list->head->next->data);
 		list->head = list->head->next;
 		list->head->prev = NULL;
 	}
@@ -213,8 +212,6 @@ bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_d
 		free( (void*)*(uintptr_t*)(node->data) );
 	}
 
-	// printf("%d\n", *(int*)node->data);
-
 	node->next = NULL;
 	node->prev = NULL;
 
@@ -238,10 +235,13 @@ bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, Linked
 		remove_status = LinkedList_remove(list, temp, heap_data);
 
 		if(remove_status == false)
+			return false;
+	}
+
 	return true;
 }
 
-void LinkedList_clean(LinkedList_list *list, bool heap_data)
+void LinkedList_clean(LinkedList_List *list, bool heap_data)
 {
 	LinkedList_Node *current_node = list->head;
 	LinkedList_Node *next_node = list->head;
