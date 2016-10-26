@@ -32,7 +32,8 @@ struct LinkedList_list {
     LinkedList_Node *tail;      /* List tail, dummy node. */
 };
 
-LinkedList_list* LinkedList_new()
+static LinkedList_Node* LinkedList_construct_node(void* data, size_t size);
+
 {
 	LinkedList_list* list = malloc( sizeof(LinkedList_list) );
 	list->length = 0;
@@ -42,21 +43,39 @@ LinkedList_list* LinkedList_new()
 	return list;
 }
 
-void* LinkedList_push_back( LinkedList_list* list, void* data, size_t size )
+LinkedList_Node* LinkedList_construct_node(void* data, size_t size)
 {
 	LinkedList_Node* node;
 
 	if( size != 0 )
 	{
 		node = malloc(sizeof(LinkedList_Node) + size);
+
+		if( node == NULL )
+			return NULL;
+
 		memcpy(node->data, data, size);
 	}
 	
 	else
 	{
 		node = malloc(sizeof(LinkedList_Node) + sizeof(void*));
+
+		if( node == NULL )
+			return NULL;
+
 		memcpy(node->data, &data, sizeof(void*));
 	}
+
+	return node;
+}
+
+void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size )
+{
+	LinkedList_Node* node = LinkedList_construct_node(data, size);
+
+	if( node == NULL )
+		return NULL;
 
 	if( list->length != 0 )
 	{
