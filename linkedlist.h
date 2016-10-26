@@ -37,8 +37,8 @@ void* LinkedList_get_begin(LinkedList_list* list);
 void* LinkedList_get_last(LinkedList_list* list);
 void* LinkedList_next(LinkedList_Node* node);
 void* LinkedList_prev(LinkedList_Node* node);
-bool LinkedList_remove(LinkedList_Node* node);
-bool LinkedList_remove_from(LinkedList_Node* from, LinkedList_Node* to);
 void LinkedList_clean(LinkedList_list *list, bool is_heap);
+bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_data);
+bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data);
 
 #endif /*LINKEDLIST_H_*/

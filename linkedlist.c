@@ -125,15 +125,72 @@ void* LinkedList_next(LinkedList_Node* node)
 	return node->next;
 }
 
-// TODO:
-bool LinkedList_remove(LinkedList_Node* node)
+bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_data)
 {
+	if( list->length == 1 )
+	{
+		// printf("%d\n", *(int*)list->head->data);
+		list->head = NULL;
+		list->tail = NULL;
+	}
+
+	else if( node == list->head )
+	{
+		// printf("%d\n", *(int*)list->head->next->data);
+		list->head = list->head->next;
+		list->head->prev = NULL;
+	}
+
+	else if( node == list->tail )
+	{
+		list->tail = list->tail->prev;
+		list->tail->next = NULL;
+	}
+
+	else if( node == NULL )
+	{
+		return false;
+	}
+
+	else
+	{
+		LinkedList_Node *temp = node->prev;
+
+		temp->next = node->next;
+		node->next = temp;
+	}
+
+	// free the node and its data
+	if( heap_data == true )
+	{
+		free( (void*)*(uintptr_t*)(node->data) );
+	}
+
+	// printf("%d\n", *(int*)node->data);
+
+	node->next = NULL;
+	node->prev = NULL;
+
+	free(node);
+
+	list->length--;
+
 	return true;
 }
 
-// TODO
-bool LinkedList_remove_from(LinkedList_Node* from, LinkedList_Node* to)
+bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data)
 {
+	bool remove_status = true;
+	LinkedList_Node* temp = from;
+
+	while(temp != to)
+	{
+		temp = from;
+		from = from->next;
+
+		remove_status = LinkedList_remove(list, temp, heap_data);
+
+		if(remove_status == false)
 	return true;
 }
 
