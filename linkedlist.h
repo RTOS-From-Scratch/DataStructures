@@ -29,6 +29,7 @@ LinkedList_List* LinkedList_new();
 
 void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size );
 void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size );
+bool LinkedList_is_empty(LinkedList_List *list);
 void* LinkedList_pop_back( LinkedList_List* list );
 void* LinkedList_pop_front( LinkedList_List* list );
 size_t LinkedList_get_length( LinkedList_List *list );

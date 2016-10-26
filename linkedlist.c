@@ -143,6 +143,14 @@ void* LinkedList_pop_front( LinkedList_List* list )
 	return node;
 }
 
+bool LinkedList_is_empty(LinkedList_List *list)
+{
+	if( list->head == NULL )
+		return true;
+	else
+		return false;
+}
+
 void* LinkedList_get_data(LinkedList_Node *node)
 {
 	return node->data;
