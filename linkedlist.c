@@ -34,6 +34,7 @@ struct LinkedList_List {
 
 static LinkedList_Node* LinkedList_constructNode(void* data, size_t size);
 
+// create new node and initiate its data then return this linked list
 LinkedList_List* LinkedList_new()
 {
 	LinkedList_List* list = malloc( sizeof(LinkedList_List) );
@@ -44,6 +45,11 @@ LinkedList_List* LinkedList_new()
 	return list;
 }
 
+// Private Func:
+// if the size is `ZERO` -> the data is a pointer
+// The created node has a dynamic array at the end of `LinkedList_Node` struct
+// the data is then copied to this space (dynamic array)
+// the idea to decrease the amount of heap usage
 LinkedList_Node* LinkedList_constructNode(void* data, size_t size)
 {
 	LinkedList_Node* node;
@@ -183,29 +189,34 @@ void* LinkedList_next(LinkedList_Node* node)
 
 bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_data)
 {
+	// if it is the only node
 	if( list->length == 1 )
 	{
 		list->head = NULL;
 		list->tail = NULL;
 	}
 
+	// if it is the head node
 	else if( node == list->head )
 	{
 		list->head = list->head->next;
 		list->head->prev = NULL;
 	}
 
+	// if it is the tail node
 	else if( node == list->tail )
 	{
 		list->tail = list->tail->prev;
 		list->tail->next = NULL;
 	}
 
+	// if there is no node to remove
 	else if( node == NULL )
 	{
 		return false;
 	}
 
+	// otherwise
 	else
 	{
 		LinkedList_Node *temp = node->prev;
@@ -217,6 +228,8 @@ bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_d
 	// free the node and its data
 	if( heap_data == true )
 	{
+		// if heap_data is true that means that the node's data is a pointer
+		// free the space pointer by the pointer
 		free( (void*)*(uintptr_t*)(node->data) );
 	}
 
