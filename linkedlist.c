@@ -32,7 +32,7 @@ struct LinkedList_List {
     LinkedList_Node *tail;      /* List tail, dummy node. */
 };
 
-static LinkedList_Node* LinkedList_construct_node(void* data, size_t size);
+static LinkedList_Node* LinkedList_constructNode(void* data, size_t size);
 
 LinkedList_List* LinkedList_new()
 {
@@ -44,7 +44,7 @@ LinkedList_List* LinkedList_new()
 	return list;
 }
 
-LinkedList_Node* LinkedList_construct_node(void* data, size_t size)
+LinkedList_Node* LinkedList_constructNode(void* data, size_t size)
 {
 	LinkedList_Node* node;
 
@@ -71,9 +71,9 @@ LinkedList_Node* LinkedList_construct_node(void* data, size_t size)
 	return node;
 }
 
-void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size )
+void* LinkedList_pushBack( LinkedList_List* list, void* data, size_t size )
 {
-	LinkedList_Node* node = LinkedList_construct_node(data, size);
+	LinkedList_Node* node = LinkedList_constructNode(data, size);
 
 	if( node == NULL )
 		return NULL;
@@ -97,9 +97,9 @@ void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size )
 	return node;
 }
 
-void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size )
+void* LinkedList_pushFront( LinkedList_List* list, void* data, size_t size )
 {
-	LinkedList_Node* node = LinkedList_construct_node(data, size);
+	LinkedList_Node* node = LinkedList_constructNode(data, size);
 
 	if( node == NULL )
 		return NULL;
@@ -123,7 +123,7 @@ void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size )
 	return node;
 }
 
-void* LinkedList_pop_back( LinkedList_List* list )
+void* LinkedList_popBack( LinkedList_List* list )
 {
 	LinkedList_Node* node = list->tail;
 
@@ -133,7 +133,7 @@ void* LinkedList_pop_back( LinkedList_List* list )
 	return node;
 }
 
-void* LinkedList_pop_front( LinkedList_List* list )
+void* LinkedList_popFront( LinkedList_List* list )
 {
 	LinkedList_Node* node = list->head;
 
@@ -143,7 +143,7 @@ void* LinkedList_pop_front( LinkedList_List* list )
 	return node;
 }
 
-bool LinkedList_is_empty(LinkedList_List *list)
+bool LinkedList_isEmpty(LinkedList_List *list)
 {
 	if( list->head == NULL )
 		return true;
@@ -151,22 +151,22 @@ bool LinkedList_is_empty(LinkedList_List *list)
 		return false;
 }
 
-void* LinkedList_get_data(LinkedList_Node *node)
+void* LinkedList_getData(LinkedList_Node *node)
 {
 	return node->data;
 }
 
-void* LinkedList_get_begin(LinkedList_List* list)
+void* LinkedList_getBegin(LinkedList_List* list)
 {
 	return list->head;
 }
 
-void* LinkedList_get_last(LinkedList_List* list)
+void* LinkedList_getLast(LinkedList_List* list)
 {
 	return list->tail;
 }
 
-size_t LinkedList_get_length( LinkedList_List *list )
+size_t LinkedList_getLength( LinkedList_List *list )
 {
 	return list->length;
 }
@@ -230,7 +230,7 @@ bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_d
 	return true;
 }
 
-bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data)
+bool LinkedList_removeFrom(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data)
 {
 	bool remove_status = true;
 	LinkedList_Node* temp = from;

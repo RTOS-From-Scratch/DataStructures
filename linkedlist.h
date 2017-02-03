@@ -27,19 +27,19 @@ typedef struct LinkedList_List LinkedList_List;
 
 LinkedList_List* LinkedList_new();
 
-void* LinkedList_push_back( LinkedList_List* list, void* data, size_t size );
-void* LinkedList_push_front( LinkedList_List* list, void* data, size_t size );
-bool LinkedList_is_empty(LinkedList_List *list);
-void* LinkedList_pop_back( LinkedList_List* list );
-void* LinkedList_pop_front( LinkedList_List* list );
-size_t LinkedList_get_length( LinkedList_List *list );
-void* LinkedList_get_data(LinkedList_Node *node);
-void* LinkedList_get_begin(LinkedList_List* list);
-void* LinkedList_get_last(LinkedList_List* list);
+void* LinkedList_pushBack( LinkedList_List* list, void* data, size_t size );
+void* LinkedList_pushFront( LinkedList_List* list, void* data, size_t size );
+bool LinkedList_isEmpty(LinkedList_List *list);
+void* LinkedList_popBack( LinkedList_List* list );
+void* LinkedList_popFront( LinkedList_List* list );
+size_t LinkedList_getLength( LinkedList_List *list );
+void* LinkedList_getData(LinkedList_Node *node);
+void* LinkedList_getBegin(LinkedList_List* list);
+void* LinkedList_getLast(LinkedList_List* list);
 void* LinkedList_next(LinkedList_Node* node);
 void* LinkedList_prev(LinkedList_Node* node);
 bool LinkedList_remove(LinkedList_List *list, LinkedList_Node* node, bool heap_data);
-bool LinkedList_remove_from(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data);
+bool LinkedList_removeFrom(LinkedList_List *list, LinkedList_Node* from, LinkedList_Node* to, bool heap_data);
 void LinkedList_clean(LinkedList_List *list, bool is_heap);
 
 #endif /*LINKEDLIST_H_*/
