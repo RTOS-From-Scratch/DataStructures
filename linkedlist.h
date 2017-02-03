@@ -1,4 +1,4 @@
-/* Description : An implementation for LIFO -Linked List-, inspired by Linux kernel
+/* Description : An implementation for -Linked List-, inspired by Linux kernel
  * Usage	   : 
  * Author	   : Baron Leonardo <mohamedayman.fcis@zoho.com>
  * License	   : Copyright (C) 2016 RTOS From Scratch
@@ -46,6 +46,10 @@ void* LinkedList_popFront( LinkedList_List* list );
 size_t LinkedList_getLength( LinkedList_List *list );
 // get data of a specific node
 void* LinkedList_getData(LinkedList_Node *node);
+// get data of the head node
+void* LinkedList_getHeadData(LinkedList_List *list);
+// get data of the tail node
+void* LinkedList_getTailData(LinkedList_List *list);
 // get the first node of the linked list
 void* LinkedList_getBegin(LinkedList_List* list);
 // get the last node of the linked list

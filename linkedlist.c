@@ -162,6 +162,16 @@ void* LinkedList_getData(LinkedList_Node *node)
 	return node->data;
 }
 
+void* LinkedList_getHeadData(LinkedList_List *list)
+{
+	return list->head->data;
+}
+
+void* LinkedList_getTailData(LinkedList_List *list)
+{
+	return list->tail->data;
+}
+
 void* LinkedList_getBegin(LinkedList_List* list)
 {
 	return list->head;
