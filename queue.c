@@ -28,26 +28,22 @@ Queue* Queue_new()
     return LinkedList_new();
 }
 
-// [ , , , , , , ] <- push
 // if the size is `ZERO` -> the data is a pointer
 void Queue_push( Queue* queue, void* data, size_t size )
 {
     LinkedList_pushFront( queue, data, size );
 }
 
-// check if the queue is empty
 bool Queue_isEmpty(Queue *queue)
 {
     return LinkedList_isEmpty(queue);
 }
 
-// [ , , , , , , ] -> pop
 void* Queue_pop( Queue* queue )
 {
-    return LinkedList_getData( LinkedList_popBack(queue) );
+    return LinkedList_getData( LinkedList_popFront(queue) );
 }
 
-// get the current length of the queue
 size_t Queue_getLength( Queue *queue )
 {
     return LinkedList_getLength(queue);

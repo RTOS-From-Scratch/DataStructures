@@ -40,7 +40,7 @@ Queue* Queue_new();
 void Queue_push( Queue* queue, void* data, size_t size );
 // check if the queue is empty
 bool Queue_isEmpty(Queue *list);
-// [ , , , , , , ] -> pop
+// pop <- [ , , , , , , ]
 void* Queue_pop( Queue* queue );
 // get the current length of the queue
 size_t Queue_getLength( Queue *queue );
