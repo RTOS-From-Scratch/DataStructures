@@ -22,7 +22,7 @@
 
 #include "stack.h"
 
-// create a new linked list
+// create a new Stack
 Stack* Stack_new()
 {
     return LinkedList_new();

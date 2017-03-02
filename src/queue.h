@@ -32,14 +32,14 @@ typedef struct LinkedList_Node Queue_Node;
 // A type represent `Queue`
 typedef struct LinkedList_List Queue;
 
-// create a new linked list
+// create a new Queue
 Queue* Queue_new();
 
 // [ , , , , , , ] <- push
 // if the size is `ZERO` -> the data is a pointer
 void Queue_push( Queue* queue, void* data, size_t size );
 // check if the queue is empty
-bool Queue_isEmpty(Queue *list);
+bool Queue_isEmpty(Queue *queue);
 // pop <- [ , , , , , , ]
 void* Queue_pop( Queue* queue );
 // get the current length of the queue

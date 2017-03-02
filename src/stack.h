@@ -32,14 +32,14 @@ typedef struct LinkedList_Node Stack_Node;
 // A type represent `Stack`
 typedef struct LinkedList_List Stack;
 
-// create a new linked list
+// create a new Stack
 Stack* Stack_new();
 
 // [ , , , , , , ] <- push
 // if the size is `ZERO` -> the data is a pointer
 void Stack_push( Stack* stack, void* data, size_t size );
 // check if the stack is empty
-bool Stack_isEmpty(Stack *list);
+bool Stack_isEmpty(Stack *stack);
 // [ , , , , , , ] -> pop
 void* Stack_pop( Stack* stack );
 // get the current length of the stack

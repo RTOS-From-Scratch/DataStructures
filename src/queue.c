@@ -22,7 +22,7 @@
 
 #include "queue.h"
 
-// create a new linked list
+// create a new Queue
 Queue* Queue_new()
 {
     return LinkedList_new();
