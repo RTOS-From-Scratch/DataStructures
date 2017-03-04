@@ -54,7 +54,7 @@ SET(CMAKE_CXX_COMPILER ${ARM_TOOLCHAIN_BIN_PATH}/arm-none-eabi-g++ CACHE STRING 
 SET(CMAKE_ASM_COMPILER ${ARM_TOOLCHAIN_BIN_PATH}/arm-none-eabi-as CACHE STRING "ASM" FORCE)
 #################################################################
 
-################# check important files existance################
+################# check important files existance ################
 if(RFS_TESTING)
 	# check `tm4c123gh6pm.lds` existance
 	if( NOT EXISTS ${PROJ_PATH}/tm4c123gh6pm.lds)
@@ -73,6 +73,13 @@ if( NOT EXISTS ${PROJ_PATH}/tm4c123gh6pm.h )
 endif( NOT EXISTS ${PROJ_PATH}/tm4c123gh6pm.h )
 #################################################################
 
+############################# Network ############################
+# connect other parts to this part from RFS
+if(RFS_TESTING)
+    SET( ${PROJECT_NAME}_NetworkSources ${PROJ_PATH}/../Drivers/src/UART.c )
+endif(RFS_TESTING)
+##################################################################
+
 ######################## My Sources files #######################
 # `lib` path
 SET( CMAKE_LIBRARY_PATH ${PROJ_PATH}/lib )
@@ -89,15 +96,16 @@ SET ( Other_${PROJECT_NAME}_Sources ${PROJ_PATH}/tm4c123gh6pm.h )
 # if in testing mode, add `main.c` and `startup.c`
 if(RFS_TESTING)
 	SET( ${PROJECT_NAME}_main ${PROJ_PATH}/main.c )
-	SET( Other_${PROJECT_NAME}_Sources ${Other_${PROJECT_NAME}_Sources} ${PROJ_PATH}/startup.c )
+    SET( Other_${PROJECT_NAME}_Sources ${Other_${PROJECT_NAME}_Sources} ${PROJ_PATH}/startup.c)
 	FILE(GLOB_RECURSE ${PROJECT_NAME}_LIBS ${CMAKE_LIBRARY_PATH}/*.a )
 endif(RFS_TESTING)
 SET (${PROJECT_NAME}_Sources ${${PROJECT_NAME}_CSources}
-							 ${${PROJECT_NAME}_CppSources}
-							 ${${PROJECT_NAME}_ASMSources}
-							 ${${PROJECT_NAME}_Headers}
-							 ${Other_${PROJECT_NAME}_Sources}
-							 ${${PROJECT_NAME}_main})
+                             ${${PROJECT_NAME}_CppSources}
+                             ${${PROJECT_NAME}_ASMSources}
+                             ${${PROJECT_NAME}_Headers}
+                             ${Other_${PROJECT_NAME}_Sources}
+                             ${${PROJECT_NAME}_NetworkSources}
+                             ${${PROJECT_NAME}_main})
 #################################################################
 
 ################## Compiler and linker configs ##################
