@@ -90,6 +90,11 @@ void *PQueue_getHeadData(PQueue *p_queue)
     return p_queue->queue[0].data;
 }
 
+int8_t PQueue_getHeadPriority(PQueue *p_queue)
+{
+    return p_queue->queue[0].priority;
+}
+
 void PQueue_clean(PQueue *p_queue)
 {
     free(p_queue);

@@ -49,6 +49,9 @@ size_t PQueue_getLength( PQueue *p_queue );
 // get data of the head node
 void* PQueue_getHeadData(PQueue *p_queue);
 
+// get the priority of the head node
+int8_t PQueue_getHeadPriority(PQueue *p_queue);
+
 // print the priority of each node
 // void PQueue_print(PQueue *p_queue);
 
