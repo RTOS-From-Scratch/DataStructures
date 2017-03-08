@@ -53,7 +53,7 @@ void* PQueue_getHeadData(PQueue *p_queue);
 int8_t PQueue_getHeadPriority(PQueue *p_queue);
 
 // print the priority of each node
-// void PQueue_print(PQueue *p_queue);
+ void PQueue_print(PQueue *p_queue);
 
 // clean: acts like a destructor
 void PQueue_clean(PQueue *p_queue);

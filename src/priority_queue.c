@@ -21,7 +21,8 @@
  */
 
 #include "priority_queue.h"
-// #include "../../Drivers/src/UART.h"
+#include "../../Drivers/src/UART.h"
+#include "../../helper_libraries/src/itoa.h"
 
 typedef struct PQueue_Node {
     int8_t priority;
@@ -109,11 +110,11 @@ void __sink_LastElement( PQueue *queue )
 //    char buffer[3];
 //    UART_writeLine(U0_Tx, itoa(queue->curr_index, buffer, 10));
 
-    while(current_child <= queue->curr_index)
+    while(current_child < queue->curr_index)
     {
         // check if the right child exists
         // check if the right child has higher priority
-        if(current_child + 1 <= queue->curr_index ||
+        if(current_child + 1 <= queue->curr_index &&
            node[current_child].priority < node[current_child + 1].priority)
             current_child++;
 
@@ -137,26 +138,31 @@ void __exchange_node(PQueue_Node * node1, PQueue_Node * node2 )
     node2->priority = (int8_t)tmp;
 }
 
-void __swim_LastElement( PQueue *queue )
+void __swim_LastElement( PQueue *pqueue )
 {
-    PQueue_Node* curr_node = queue->queue;
-    int8_t current_index = queue->curr_index;
+    // 1- child -> last node
+    // 2- cmp child, parent where parent -> (child-1)/2
+    // 3- child > parent -> swap and child_index = parent_index
+    // 4- else get out
+    int8_t current_index = pqueue->curr_index;
+    int8_t parent_index;
+    PQueue_Node* queue = pqueue->queue;
 
-    while (current_index >= 1 &&
-           curr_node[current_index / 2].priority < curr_node[current_index].priority)
+    while (current_index > 0 &&
+           queue[parent_index =  (current_index - 1) / 2].priority < queue[current_index].priority)
     {
-        __exchange_node(&curr_node[current_index/2], &curr_node[current_index]);
-        current_index = current_index / 2;
+        __exchange_node(&queue[parent_index], &queue[current_index]);
+        current_index = parent_index;
     }
 }
 
-// void PQueue_print(PQueue *p_queue)
-// {
-//     char buffer[3];
-// 
-//     for(int iii = 0; iii <= p_queue->curr_index; ++iii)
-//     {
-//         UART_writeLine(U0_Tx, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
-//         UART_write(U0_Tx, '\n');
-//     }
-// }
+ void PQueue_print(PQueue *p_queue)
+ {
+     char buffer[3];
+
+     for(int iii = 0; iii <= p_queue->curr_index; ++iii)
+     {
+         UART_writeLine(U0_Tx, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
+         UART_write(U0_Tx, '\n');
+     }
+ }
