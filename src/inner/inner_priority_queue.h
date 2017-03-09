@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "../../../Drivers/src/UART.h"
+#include "../../../helper_libraries/src/itoa.h"
 
 typedef struct __PQueue_Node {
     int8_t priority;
@@ -22,5 +24,6 @@ void __sink_LastElement( __PQueue *queue );
 void __swim_LastElement_inverted( __PQueue *queue );
 void __sink_LastElement_inverted( __PQueue *queue );
 void* __PQueue_popHead(__PQueue *p_queue);
+void __PQueue_print(__PQueue *p_queue);
 
 #endif // INNER_PRIORITY_QUEUE

@@ -91,3 +91,14 @@ void __swim_LastElement_inverted( __PQueue *p_queue )
     }
 }
 
+// print the priority of each node
+void __PQueue_print(__PQueue *p_queue)
+{
+    char buffer[3];
+
+    for(int iii = 0; iii <= p_queue->curr_index; ++iii)
+    {
+        UART_writeLine(U0_Tx, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
+        UART_write(U0_Tx, '\n');
+    }
+}
