@@ -21,8 +21,6 @@
  */
 
 #include "priority_queue.h"
-#include "../../Drivers/src/UART.h"
-#include "../../helper_libraries/src/itoa.h"
 
 PQueue *PQueue_new( size_t queue_length )
 {
@@ -86,13 +84,7 @@ void PQueue_clean(PQueue *p_queue)
     free(p_queue);
 }
 
- void PQueue_print(PQueue *p_queue)
- {
-     char buffer[3];
-
-     for(int iii = 0; iii <= p_queue->curr_index; ++iii)
-     {
-         UART_writeLine(U0_Tx, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
-         UART_write(U0_Tx, '\n');
-     }
- }
+void PQueue_print(PQueue *p_queue)
+{
+    __PQueue_print(p_queue);
+}
