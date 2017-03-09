@@ -21,8 +21,6 @@
  */
 
 #include "inverted_priority_queue.h"
-#include "../../Drivers/src/UART.h"
-#include "../../helper_libraries/src/itoa.h"
 
 IPQueue *IPQueue_new( size_t queue_length )
 {
@@ -80,5 +78,5 @@ void IPQueue_clean(IPQueue *p_queue)
 
  void IPQueue_print(IPQueue *p_queue)
  {
-     PQueue_print(p_queue);
+     __PQueue_print(p_queue);
  }
