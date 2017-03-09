@@ -26,9 +26,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "inner/inner_priority_queue.h"
 
 // A type represent `PQueue`
-typedef struct PQueue PQueue;
+typedef __PQueue PQueue;
 
 // create a new Priority Queue
 PQueue* PQueue_new(size_t queue_length);
