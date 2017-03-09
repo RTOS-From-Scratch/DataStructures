@@ -4,8 +4,6 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include "../../../Drivers/src/UART.h"
-#include "../../../helper_libraries/src/itoa.h"
 
 typedef struct __PQueue_Node {
     int8_t priority;
