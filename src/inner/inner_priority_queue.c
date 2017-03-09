@@ -1,4 +1,6 @@
 #include "inner_priority_queue.h"
+#include "../../../Drivers/src/UART.h"
+#include "../../../helper_libraries/src/itoa.h"
 
 void __exchange_node(__PQueue_Node * node1, __PQueue_Node * node2 )
 {
