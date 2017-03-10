@@ -49,7 +49,7 @@ long PQueue_push(PQueue *queue, int8_t priority, void *data)
 
 bool PQueue_isEmpty(PQueue *p_queue)
 {
-    if(p_queue->length == -1) return true;
+    if(p_queue->curr_index == -1) return true;
     else return false;
 }
 
