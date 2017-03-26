@@ -1,6 +1,6 @@
 #include "inner_priority_queue.h"
-#include "../../../Drivers/src/UART.h"
-#include "../../../helper_libraries/src/itoa.h"
+#include "Drivers/src/UART.h"
+#include "Misc/src/itoa.h"
 
 void __exchange_node(__PQueue_Node * node1, __PQueue_Node * node2 )
 {
@@ -100,7 +100,7 @@ void __PQueue_print(__PQueue *p_queue)
 
     for(int iii = 0; iii <= p_queue->curr_index; ++iii)
     {
-        UART_writeLine(U0_Tx, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
-        UART_write(U0_Tx, '\n');
+//        UART_writeLine(U0, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
+//        UART_write(U0, '\n');
     }
 }
