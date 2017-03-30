@@ -52,9 +52,6 @@ void* IPQueue_getHeadData(IPQueue *p_queue);
 // get the priority of the head node
 int8_t IPQueue_getHeadPriority(IPQueue *p_queue);
 
-// print the priority of each node
- void IPQueue_print(IPQueue *p_queue);
-
 // clean: acts like a destructor
 void IPQueue_clean(IPQueue *p_queue);
 

@@ -83,8 +83,3 @@ void PQueue_clean(PQueue *p_queue)
 {
     free(p_queue);
 }
-
-void PQueue_print(PQueue *p_queue)
-{
-    __PQueue_print(p_queue);
-}

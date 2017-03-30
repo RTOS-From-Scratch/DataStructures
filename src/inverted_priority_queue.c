@@ -75,8 +75,3 @@ void IPQueue_clean(IPQueue *p_queue)
 {
     PQueue_clean(p_queue);
 }
-
- void IPQueue_print(IPQueue *p_queue)
- {
-     __PQueue_print(p_queue);
- }

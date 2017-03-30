@@ -1,4 +1,4 @@
-#include "inner_priority_queue.h"
+#include "__priority_queue.h"
 #include "Drivers/src/UART.h"
 #include "Misc/src/itoa.h"
 
@@ -90,17 +90,5 @@ void __swim_LastElement_inverted( __PQueue *p_queue )
     {
         __exchange_node(&queue[parent_index], &queue[current_index]);
         current_index = parent_index;
-    }
-}
-
-// print the priority of each node
-void __PQueue_print(__PQueue *p_queue)
-{
-    char buffer[3];
-
-    for(int iii = 0; iii <= p_queue->curr_index; ++iii)
-    {
-//        UART_writeLine(U0, (char*)itoa(p_queue->queue[iii].priority, buffer, 10));
-//        UART_write(U0, '\n');
     }
 }
