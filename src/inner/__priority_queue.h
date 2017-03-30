@@ -22,6 +22,5 @@ void __sink_LastElement( __PQueue *queue );
 void __swim_LastElement_inverted( __PQueue *queue );
 void __sink_LastElement_inverted( __PQueue *queue );
 void* __PQueue_popHead(__PQueue *p_queue);
-void __PQueue_print(__PQueue *p_queue);
 
 #endif // INNER_PRIORITY_QUEUE
