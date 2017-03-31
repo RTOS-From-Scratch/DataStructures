@@ -44,7 +44,8 @@ long PQueue_push(PQueue *queue, int8_t priority, void *data)
 
     __swim_LastElement( queue );
 
-    return queue->length;
+    // return current length
+    return queue->curr_index + 1;
 }
 
 bool PQueue_isEmpty(PQueue *p_queue)
