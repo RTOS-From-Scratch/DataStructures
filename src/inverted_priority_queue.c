@@ -37,7 +37,7 @@ long IPQueue_push(IPQueue *queue, int8_t priority, void *data)
 
     __swim_LastElement_inverted( queue );
 
-    return queue->length;
+    return queue->curr_index + 1;
 }
 
 bool IPQueue_isEmpty(IPQueue *p_queue)
