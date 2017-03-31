@@ -98,5 +98,6 @@ bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index)
 
 void PQueue_clean(PQueue *p_queue)
 {
+    p_queue->curr_index = -1;
     free(p_queue);
 }
