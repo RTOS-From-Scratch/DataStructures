@@ -76,7 +76,7 @@ endif( NOT EXISTS ${PROJ_PATH}/tm4c123gh6pm.h )
 ############################# Network ############################
 # connect other parts to this part from RFS
 if(${RFS_TESTING_${PROJECT_NAME}})
-    SET( ${PROJECT_NAME}_NetworkSources ${PROJ_PATH}/../Drivers/src/UART.c )
+   SET( ${PROJECT_NAME}_NetworkSources )
 endif(${RFS_TESTING_${PROJECT_NAME}})
 ##################################################################
 
