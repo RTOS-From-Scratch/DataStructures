@@ -84,6 +84,8 @@ bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index)
 {
     __PQueue_Node* queue = p_queue->queue;
 
+    if(index > p_queue->curr_index) return false;
+
     // move last node into the node needed to be removed
     __PQueue_Node_move(&queue[p_queue->curr_index], &queue[index]);
     p_queue->curr_index--;
