@@ -52,6 +52,9 @@ void* IPQueue_getHeadData(IPQueue *p_queue);
 // get the priority of the head node
 int8_t IPQueue_getHeadPriority(IPQueue *p_queue);
 
+// remove node from PQueue
+bool IPQueue_remove(IPQueue *p_queue, IPQueue_nodeIndex index);
+
 // clean: acts like a destructor
 void IPQueue_clean(IPQueue *p_queue);
 

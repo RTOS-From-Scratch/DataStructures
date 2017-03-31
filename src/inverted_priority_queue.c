@@ -51,7 +51,9 @@ void *IPQueue_popHead(IPQueue *p_queue)
  //    __exchange_node(&p_queue->queue[0], &p_queue->queue[p_queue->curr_index]);
      p_queue->queue[0] = p_queue->queue[p_queue->curr_index];
      p_queue->curr_index--;
-     __sink_LastElement_inverted(p_queue);
+
+     // sink start from the root node
+     __IPQueue_Node_sink(p_queue, 0);
 
      return head_data;
 }
@@ -69,6 +71,21 @@ void *IPQueue_getHeadData(IPQueue *p_queue)
 int8_t IPQueue_getHeadPriority(IPQueue *p_queue)
 {
     return PQueue_getHeadPriority(p_queue);
+}
+
+bool IPQueue_remove(IPQueue *p_queue, IPQueue_nodeIndex index)
+{
+    __PQueue_Node* queue = p_queue->queue;
+
+    if(index > p_queue->curr_index) return false;
+
+    // move last node into the node needed to be removed
+    __PQueue_Node_move(&queue[p_queue->curr_index], &queue[index]);
+    p_queue->curr_index--;
+
+    __IPQueue_Node_sink(p_queue, index);
+
+    return true;
 }
 
 void IPQueue_clean(IPQueue *p_queue)

@@ -60,17 +60,17 @@ void __swim_LastElement( __PQueue *p_queue )
     }
 }
 
-void __sink_LastElement_inverted( __PQueue *p_queue )
+void __IPQueue_Node_sink(__PQueue *p_queue_inv, IPQueue_nodeIndex index )
 {
-    __PQueue_Node* queue = p_queue->queue;
-    int current_parent = 0;
-    int current_child  = 1;
+    __PQueue_Node* queue = p_queue_inv->queue;
+    int current_parent = index;
+    int current_child  = current_parent * 2 + 1;
 
-    while(current_child < p_queue->curr_index)
+    while(current_child < p_queue_inv->curr_index)
     {
         // check if the right child exists
         // check if the right child has higher priority
-        if(current_child + 1 <= p_queue->curr_index &&
+        if(current_child + 1 <= p_queue_inv->curr_index &&
            queue[current_child].priority > queue[current_child + 1].priority)
             current_child++;
 
