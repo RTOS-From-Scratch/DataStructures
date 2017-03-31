@@ -59,7 +59,8 @@ void *PQueue_popHead(PQueue *p_queue)
 //    __exchange_node(&p_queue->queue[0], &p_queue->queue[p_queue->curr_index]);
     p_queue->queue[0] = p_queue->queue[p_queue->curr_index];
     p_queue->curr_index--;
-    __sink_LastElement(p_queue);
+    // sink start from the root node
+    __PQueue_Node_sink(p_queue, 0);
 
     return head_data;
 }
@@ -77,6 +78,19 @@ void *PQueue_getHeadData(PQueue *p_queue)
 int8_t PQueue_getHeadPriority(PQueue *p_queue)
 {
     return p_queue->queue[0].priority;
+}
+
+bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index)
+{
+    __PQueue_Node* queue = p_queue->queue;
+
+    // move last node into the node needed to be removed
+    __PQueue_Node_move(&queue[p_queue->curr_index], &queue[index]);
+    p_queue->curr_index--;
+
+    __PQueue_Node_sink(p_queue, index);
+
+    return true;
 }
 
 void PQueue_clean(PQueue *p_queue)

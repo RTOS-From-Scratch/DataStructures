@@ -53,6 +53,9 @@ void* PQueue_getHeadData(PQueue *p_queue);
 // get the priority of the head node
 int8_t PQueue_getHeadPriority(PQueue *p_queue);
 
+// remove node from PQueue
+bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index);
+
 // clean: acts like a destructor
 void PQueue_clean(PQueue *p_queue);
 

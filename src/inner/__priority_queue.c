@@ -2,7 +2,13 @@
 #include "Drivers/src/UART.h"
 #include "Misc/src/itoa.h"
 
-void __exchange_node(__PQueue_Node * node1, __PQueue_Node * node2 )
+void __PQueue_Node_move(__PQueue_Node* src, __PQueue_Node* dest)
+{
+    dest->data = src->data;
+    dest->priority = src->priority;
+}
+
+void __exchange_node(__PQueue_Node* node1, __PQueue_Node* node2 )
 {
     // exchange data
     long tmp = (long)node1->data;
@@ -15,10 +21,10 @@ void __exchange_node(__PQueue_Node * node1, __PQueue_Node * node2 )
     node2->priority = (int8_t)tmp;
 }
 
-void __sink_LastElement( __PQueue *p_queue )
+void __PQueue_Node_sink( __PQueue *p_queue, PQueue_nodeIndex index )
 {
     __PQueue_Node* queue = p_queue->queue;
-    int current_parent = 0;
+    int current_parent = index;
     int current_child  = current_parent * 2 + 1;
 
     while(current_child < p_queue->curr_index)
