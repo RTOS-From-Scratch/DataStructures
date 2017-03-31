@@ -19,7 +19,7 @@ void __sink_LastElement( __PQueue *p_queue )
 {
     __PQueue_Node* queue = p_queue->queue;
     int current_parent = 0;
-    int current_child  = 1;
+    int current_child  = current_parent * 2 + 1;
 
     while(current_child < p_queue->curr_index)
     {
