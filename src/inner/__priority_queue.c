@@ -1,24 +1,12 @@
 #include "__priority_queue.h"
 #include "Drivers/src/UART.h"
 #include "Misc/src/itoa.h"
+#include "Misc/src/definitions.h"
 
 void __PQueue_Node_move(__PQueue_Node* src, __PQueue_Node* dest)
 {
     dest->data = src->data;
     dest->priority = src->priority;
-}
-
-void __exchange_node(__PQueue_Node* node1, __PQueue_Node* node2 )
-{
-    // exchange data
-    long tmp = (long)node1->data;
-    node1->data = node2->data;
-    node2->data = (void *)tmp;
-
-    // exchange priority
-    tmp = node1->priority;
-    node1->priority = node2->priority;
-    node2->priority = (int8_t)tmp;
 }
 
 void __PQueue_Node_sink( __PQueue *p_queue, uint16_t index )
@@ -35,7 +23,7 @@ void __PQueue_Node_sink( __PQueue *p_queue, uint16_t index )
            queue[current_child].priority < queue[current_child + 1].priority)
             current_child++;
 
-        __exchange_node(&queue[current_parent], &queue[current_child]);
+        SWAP(queue[current_parent], queue[current_child], __PQueue_Node);
 
         current_parent = current_child;
         current_child  = current_parent * 2 + 1;
@@ -55,7 +43,7 @@ void __swim_LastElement( __PQueue *p_queue )
     while (current_index > 0 &&
            queue[parent_index =  (current_index - 1) / 2].priority < queue[current_index].priority)
     {
-        __exchange_node(&queue[parent_index], &queue[current_index]);
+        SWAP(queue[parent_index], queue[current_index], __PQueue_Node);
         current_index = parent_index;
     }
 }
@@ -74,7 +62,7 @@ void __IPQueue_Node_sink( __PQueue *p_queue_inv, uint16_t index )
            queue[current_child].priority > queue[current_child + 1].priority)
             current_child++;
 
-        __exchange_node(&queue[current_parent], &queue[current_child]);
+        SWAP(queue[current_parent], queue[current_child], __PQueue_Node);
 
         current_parent = current_child;
         current_child  = current_parent * 2 + 1;
@@ -94,7 +82,7 @@ void __swim_LastElement_inverted( __PQueue *p_queue )
     while (current_index > 0 &&
            queue[parent_index =  (current_index - 1) / 2].priority > queue[current_index].priority)
     {
-        __exchange_node(&queue[parent_index], &queue[current_index]);
+        SWAP(queue[parent_index], queue[current_index], __PQueue_Node);
         current_index = parent_index;
     }
 }
