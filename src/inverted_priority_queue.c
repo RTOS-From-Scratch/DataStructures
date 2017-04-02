@@ -22,72 +22,72 @@
 
 #include "inverted_priority_queue.h"
 
-IPQueue *IPQueue_new( size_t queue_length )
+IPQueue *IPQueue_new(uint16_t length)
 {
-    return PQueue_new(queue_length);
+    return PQueue_new(length);
 }
 
-uint16_t IPQueue_push(IPQueue *queue, int8_t priority, void *data)
+uint16_t IPQueue_push(IPQueue *inv_p_queue, int8_t priority, void *data)
 {
     // TODO: check length first
-    if(! queue) return -1;
+    if(! inv_p_queue) return -1;
 
-    queue->queue[++queue->curr_index].priority = priority;
-    queue->queue[queue->curr_index].data = data;
+    inv_p_queue->queue[++inv_p_queue->curr_index].priority = priority;
+    inv_p_queue->queue[inv_p_queue->curr_index].data = data;
 
-    __swim_LastElement_inverted( queue );
+    __swim_LastElement_inverted( inv_p_queue );
 
-    return queue->curr_index + 1;
+    return inv_p_queue->curr_index + 1;
 }
 
-bool IPQueue_isEmpty(IPQueue *p_queue)
+bool IPQueue_isEmpty(IPQueue *inv_p_queue)
 {
-    return PQueue_isEmpty(p_queue);
+    return PQueue_isEmpty(inv_p_queue);
 }
 
-void *IPQueue_popHead(IPQueue *p_queue)
+void *IPQueue_popHead(IPQueue *inv_p_queue)
 {
-    void* head_data = p_queue->queue[0].data;
-     p_queue->queue[0] = p_queue->queue[p_queue->curr_index];
-     p_queue->curr_index--;
+    void* head_data = inv_p_queue->queue[0].data;
+     inv_p_queue->queue[0] = inv_p_queue->queue[inv_p_queue->curr_index];
+     inv_p_queue->curr_index--;
 
      // sink start from the root node
-     __IPQueue_Node_sink(p_queue, 0);
+     __IPQueue_Node_sink(inv_p_queue, 0);
 
      return head_data;
 }
 
-size_t IPQueue_getLength(IPQueue *p_queue)
+size_t IPQueue_getLength(IPQueue *inv_p_queue)
 {
-    return PQueue_getLength(p_queue);
+    return PQueue_getLength(inv_p_queue);
 }
 
-void *IPQueue_getHeadData(IPQueue *p_queue)
+void *IPQueue_getHeadData(IPQueue *inv_p_queue)
 {
-    return PQueue_getHeadData(p_queue);
+    return PQueue_getHeadData(inv_p_queue);
 }
 
-int8_t IPQueue_getHeadPriority(IPQueue *p_queue)
+int8_t IPQueue_getHeadPriority(IPQueue *inv_p_queue)
 {
-    return PQueue_getHeadPriority(p_queue);
+    return PQueue_getHeadPriority(inv_p_queue);
 }
 
-bool IPQueue_remove(IPQueue *p_queue, void* data)
+bool IPQueue_remove(IPQueue *inv_p_queue, void* data)
 {
-    __PQueue_Node* queue = p_queue->queue;
+    __PQueue_Node* queue = inv_p_queue->queue;
 
-    int16_t indexToBeRemove = __PQueue_find(p_queue, data);
+    // find the index of the node needed to be removed
+    int16_t indexToBeRemove = __PQueue_find(inv_p_queue, data);
 
-    // move last node into the node needed to be removed
-    __PQueue_Node_move(&queue[p_queue->curr_index], &queue[indexToBeRemove]);
-    p_queue->curr_index--;
+    // override the node needed to be removed by the last node
+    queue[indexToBeRemove] = queue[inv_p_queue->curr_index--];
 
-    __IPQueue_Node_sink(p_queue, indexToBeRemove);
+    __IPQueue_Node_sink(inv_p_queue, indexToBeRemove);
 
     return true;
 }
 
-void IPQueue_clean(IPQueue *p_queue)
+void IPQueue_clean(IPQueue *inv_p_queue)
 {
-    PQueue_clean(p_queue);
+    PQueue_clean(inv_p_queue);
 }
