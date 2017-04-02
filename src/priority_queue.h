@@ -36,7 +36,7 @@ PQueue* PQueue_new(size_t queue_length);
 
 // [ , , , , , , ] <- push
 // if the size is `ZERO` -> the data is a pointer
-long PQueue_push(PQueue* queue, int8_t priority, void* data);
+uint32_t PQueue_push(PQueue* queue, int8_t priority, void* data);
 
 // check if the priority queue is empty
 bool PQueue_isEmpty(PQueue *p_queue);
@@ -54,7 +54,7 @@ void* PQueue_getHeadData(PQueue *p_queue);
 int8_t PQueue_getHeadPriority(PQueue *p_queue);
 
 // remove node from PQueue
-bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index);
+bool PQueue_remove(PQueue *p_queue, void* data);
 
 // clean: acts like a destructor
 void PQueue_clean(PQueue *p_queue);

@@ -35,7 +35,7 @@ IPQueue* IPQueue_new(size_t queue_length);
 
 // [ , , , , , , ] <- push
 // if the size is `ZERO` -> the data is a pointer
-long IPQueue_push(IPQueue* queue, int8_t priority, void* data);
+uint16_t IPQueue_push(IPQueue* queue, int8_t priority, void* data);
 
 // check if the inverted priority queue is empty
 bool IPQueue_isEmpty(IPQueue *p_queue);
@@ -53,7 +53,7 @@ void* IPQueue_getHeadData(IPQueue *p_queue);
 int8_t IPQueue_getHeadPriority(IPQueue *p_queue);
 
 // remove node from PQueue
-bool IPQueue_remove(IPQueue *p_queue, IPQueue_nodeIndex index);
+bool IPQueue_remove(IPQueue *p_queue, void* data);
 
 // clean: acts like a destructor
 void IPQueue_clean(IPQueue *p_queue);

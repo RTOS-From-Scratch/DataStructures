@@ -34,7 +34,7 @@ PQueue *PQueue_new( size_t queue_length )
     return p_queue;
 }
 
-long PQueue_push(PQueue *queue, int8_t priority, void *data)
+uint32_t PQueue_push(PQueue *queue, int8_t priority, void *data)
 {
     // TODO: check length first
     if(! queue) return -1;
@@ -57,7 +57,6 @@ bool PQueue_isEmpty(PQueue *p_queue)
 void *PQueue_popHead(PQueue *p_queue)
 {
     void* head_data = p_queue->queue[0].data;
-//    __exchange_node(&p_queue->queue[0], &p_queue->queue[p_queue->curr_index]);
     p_queue->queue[0] = p_queue->queue[p_queue->curr_index];
     p_queue->curr_index--;
     // sink start from the root node
@@ -81,17 +80,17 @@ int8_t PQueue_getHeadPriority(PQueue *p_queue)
     return p_queue->queue[0].priority;
 }
 
-bool PQueue_remove(PQueue *p_queue, PQueue_nodeIndex index)
+bool PQueue_remove(PQueue *p_queue, void* data)
 {
     __PQueue_Node* queue = p_queue->queue;
 
-    if(index > p_queue->curr_index) return false;
+    int16_t indexToBeRemove = __PQueue_find(p_queue, data);
 
     // move last node into the node needed to be removed
-    __PQueue_Node_move(&queue[p_queue->curr_index], &queue[index]);
+    __PQueue_Node_move(&queue[p_queue->curr_index], &queue[indexToBeRemove]);
     p_queue->curr_index--;
 
-    __PQueue_Node_sink(p_queue, index);
+    __PQueue_Node_sink(p_queue, indexToBeRemove);
 
     return true;
 }
