@@ -48,13 +48,13 @@ bool IPQueue_isEmpty(IPQueue *inv_p_queue)
 void *IPQueue_popHead(IPQueue *inv_p_queue)
 {
     void* head_data = inv_p_queue->queue[0].data;
-     inv_p_queue->queue[0] = inv_p_queue->queue[inv_p_queue->curr_index];
-     inv_p_queue->curr_index--;
+    inv_p_queue->queue[0] = inv_p_queue->queue[inv_p_queue->curr_index];
+    inv_p_queue->curr_index--;
 
-     // sink start from the root node
-     __IPQueue_Node_sink(inv_p_queue, 0);
+    // sink start from the root node
+    __IPQueue_Node_sink(inv_p_queue, 0);
 
-     return head_data;
+    return head_data;
 }
 
 size_t IPQueue_getLength(IPQueue *inv_p_queue)
@@ -78,6 +78,9 @@ bool IPQueue_remove(IPQueue *inv_p_queue, void* data)
 
     // find the index of the node needed to be removed
     int16_t indexToBeRemove = __PQueue_find(inv_p_queue, data);
+
+    // TODO: do something here
+    if(indexToBeRemove == -1) return false;
 
     // override the node needed to be removed by the last node
     queue[indexToBeRemove] = queue[inv_p_queue->curr_index--];
