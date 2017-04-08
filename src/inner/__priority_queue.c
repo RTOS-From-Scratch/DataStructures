@@ -54,7 +54,7 @@ void __IPQueue_Node_sink( __PQueue *p_queue_inv, uint16_t index )
     int current_parent = index;
     int current_child  = current_parent * 2 + 1;
 
-    while(current_child < p_queue_inv->curr_index)
+    while(current_child <= p_queue_inv->curr_index)
     {
         // check if the right child exists
         // check if the right child has higher priority
@@ -91,7 +91,7 @@ int16_t __PQueue_find(__PQueue *p_queue, void* data)
 {
     // FIXME: this disaster need to bed= implemented in another way
     // FIXME: the complexity of finding in O(n)
-    for(uint16_t counter = 0; counter < p_queue->length; ++counter)
+    for(uint16_t counter = 0; counter <= p_queue->curr_index; ++counter)
         if(p_queue->queue[counter].data == data)
             return counter;
 

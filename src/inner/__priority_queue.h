@@ -12,7 +12,7 @@ typedef struct __PQueue_Node {
 
 typedef struct __PQueue {
     uint16_t length;
-    uint16_t curr_index;
+    int16_t curr_index;
     __PQueue_Node queue[];
 }__PQueue;
 
