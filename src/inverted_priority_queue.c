@@ -48,7 +48,10 @@ bool IPQueue_isEmpty(IPQueue *inv_p_queue)
 void *IPQueue_popHead(IPQueue *inv_p_queue)
 {
     void* head_data = inv_p_queue->queue[0].data;
-    inv_p_queue->queue[0] = inv_p_queue->queue[inv_p_queue->curr_index];
+
+    if(IPQueue_getLength(inv_p_queue) > 1)
+        inv_p_queue->queue[0] = inv_p_queue->queue[inv_p_queue->curr_index];
+
     inv_p_queue->curr_index--;
 
     // sink start from the root node
