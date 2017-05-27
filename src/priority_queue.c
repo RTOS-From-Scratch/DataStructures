@@ -77,7 +77,10 @@ void *PQueue_getHeadData(PQueue *p_queue)
 
 int8_t PQueue_getHeadPriority(PQueue *p_queue)
 {
-    return p_queue->queue[0].priority;
+    if( PQueue_isEmpty(p_queue) )
+        return -1;
+    else
+        return p_queue->queue[0].priority;
 }
 
 bool PQueue_remove(PQueue *p_queue, void* data)
