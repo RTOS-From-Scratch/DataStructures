@@ -1,20 +1,26 @@
-#include "sorted_linkedlist.h"
+#include "sorted_linkedlist_with_id.h"
 #include <stdlib.h>
 #include <string.h>
 
-void SortedLinkedList_new( byte len, SortedLinkedList_t* s_linkedList )
+void SortedLinkedListWithID_new( byte len,
+                                 byte id,
+                                 SortedLinkedListWithID_t* s_linkedList )
 {
-    SortedLinkedList_init(NULL, len, s_linkedList);
+    SortedLinkedListWithID_init(NULL, len, id, s_linkedList);
 }
 
-void SortedLinkedList_init( SortedLinkedList_Node_t nodes[], byte len, SortedLinkedList_t* s_linkedList )
+void SortedLinkedListWithID_init( SortedLinkedListWithID_Node_t nodes[],
+                                  byte len,
+                                  byte id,
+                                  SortedLinkedListWithID_t* s_linkedList )
 {
+//    SortedLinkedList_init( (SortedLinkedList_Node_t *)nodes, len, s_linkedList );
     if( s_linkedList is NULL )
         return;
 
     if(nodes is NULL)
     {
-        s_linkedList->nodes = malloc( len * sizeof(SortedLinkedList_Node_t) );
+        s_linkedList->nodes = malloc( len * sizeof(SortedLinkedListWithID_Node_t) );
         s_linkedList->needToBeFreed = true;
     }
 
@@ -27,9 +33,10 @@ void SortedLinkedList_init( SortedLinkedList_Node_t nodes[], byte len, SortedLin
     s_linkedList->head = -1;
     s_linkedList->tail = -1;
     s_linkedList->length = len;
+    s_linkedList->id = id;
 }
 
-bool SortedLinkedList_insert( SortedLinkedList_t* s_linkedList, void* data, byte index )
+bool SortedLinkedListWithID_insert( SortedLinkedListWithID_t* s_linkedList, void* data, byte index )
 {
     byte tail_node_index = s_linkedList->length - 1;
 
@@ -75,19 +82,25 @@ bool SortedLinkedList_insert( SortedLinkedList_t* s_linkedList, void* data, byte
         byte nearest_filled_node_index;
 
         for(byte iii = index - 1, jjj = index + 1;
-            iii >= s_linkedList->head && jjj < s_linkedList->tail;
+            iii >= s_linkedList->head && jjj <= s_linkedList->tail;
             iii--, jjj++)
         {
             if( s_linkedList->nodes[iii].data is_not NULL )
             {
-                nearest_filled_node_index = iii;
-                break;
+                if( s_linkedList->nodes[iii].id EQUAL s_linkedList->id )
+                {
+                    nearest_filled_node_index = iii;
+                    break;
+                }
             }
 
             else if( s_linkedList->nodes[jjj].data is_not NULL )
             {
-                nearest_filled_node_index = jjj;
-                break;
+                if( s_linkedList->nodes[jjj].id EQUAL s_linkedList->id )
+                {
+                    nearest_filled_node_index = jjj;
+                    break;
+                }
             }
         }
 
@@ -112,18 +125,18 @@ bool SortedLinkedList_insert( SortedLinkedList_t* s_linkedList, void* data, byte
             s_linkedList->nodes[index].next = next;
             s_linkedList->nodes[next].prev = index;
         }
-
     }
 
     s_linkedList->nodes[index].data = data;
+    s_linkedList->nodes[index].id = s_linkedList->id;
 
     return true;
 }
 
-void* SortedLinkedList_popHead( SortedLinkedList_t* s_linkedList )
+void* SortedLinkedListWithID_popHead( SortedLinkedListWithID_t* s_linkedList )
 {
     int16_t head_index = s_linkedList->head;
-    SortedLinkedList_Node_t *head_node = &s_linkedList->nodes[head_index];
+    SortedLinkedListWithID_Node_t *head_node = &s_linkedList->nodes[head_index];
     void* data = head_node->data;
 
     if( head_index EQUAL -1 )
@@ -141,18 +154,18 @@ void* SortedLinkedList_popHead( SortedLinkedList_t* s_linkedList )
         s_linkedList->tail = -1;
     }
 
-
     head_node->data = NULL;
     head_node->next = 0;
     head_node->prev = 0;
+    head_node->id   = 0;
 
     return data;
 }
 
-void* SortedLinkedList_popTail( SortedLinkedList_t* s_linkedList )
+void* SortedLinkedListWithID_popTail( SortedLinkedListWithID_t* s_linkedList )
 {
     int16_t tail_index = s_linkedList->tail;
-    SortedLinkedList_Node_t *tail_node = &s_linkedList->nodes[tail_index];
+    SortedLinkedListWithID_Node_t *tail_node = &s_linkedList->nodes[tail_index];
     void* data = tail_node->data;
 
     if( tail_index EQUAL -1 )
@@ -173,11 +186,12 @@ void* SortedLinkedList_popTail( SortedLinkedList_t* s_linkedList )
     tail_node->data = NULL;
     tail_node->next = 0;
     tail_node->prev = 0;
+    tail_node->id   = 0;
 
     return data;
 }
 
-void* SortedLinkedList_popAt( SortedLinkedList_t* s_linkedList, byte index )
+void* SortedLinkedListWithID_popAt( SortedLinkedListWithID_t* s_linkedList, byte index )
 {
     if( index > (s_linkedList->length - 1) )
         return NULL;
@@ -185,11 +199,14 @@ void* SortedLinkedList_popAt( SortedLinkedList_t* s_linkedList, byte index )
     if( s_linkedList->nodes[index].data is NULL )
         return NULL;
 
+    if( s_linkedList->id NOT_EQUAL s_linkedList->nodes[index].id )
+        return NULL;
+
     if( index EQUAL s_linkedList->head )
-        return SortedLinkedList_popHead(s_linkedList);
+        return SortedLinkedListWithID_popHead(s_linkedList);
 
     else if( index EQUAL s_linkedList->tail )
-        return SortedLinkedList_popTail(s_linkedList);
+        return SortedLinkedListWithID_popTail(s_linkedList);
 
     else
     {
@@ -202,23 +219,24 @@ void* SortedLinkedList_popAt( SortedLinkedList_t* s_linkedList, byte index )
 
         s_linkedList->nodes[index].next = 0;
         s_linkedList->nodes[index].prev = 0;
+        s_linkedList->nodes[index].id   = 0;
         s_linkedList->nodes[index].data = NULL;
 
         return data;
     }
 }
 
-void* SortedLinkedList_getHeadData( SortedLinkedList_t* s_linkedList )
+void* SortedLinkedListWithID_getHeadData( SortedLinkedListWithID_t* s_linkedList )
 {
-    return SortedLinkedList_getData(s_linkedList, s_linkedList->head);
+    return SortedLinkedListWithID_getData(s_linkedList, s_linkedList->head);
 }
 
-void* SortedLinkedList_getTailData( SortedLinkedList_t* s_linkedList )
+void* SortedLinkedListWithID_getTailData( SortedLinkedListWithID_t* s_linkedList )
 {
-    return SortedLinkedList_getData(s_linkedList, s_linkedList->tail);
+    return SortedLinkedListWithID_getData(s_linkedList, s_linkedList->tail);
 }
 
-void* SortedLinkedList_getData( SortedLinkedList_t* s_linkedList, byte index )
+void* SortedLinkedListWithID_getData( SortedLinkedListWithID_t* s_linkedList, byte index )
 {
     if( index > (s_linkedList->length - 1) )
         return NULL;
@@ -226,7 +244,7 @@ void* SortedLinkedList_getData( SortedLinkedList_t* s_linkedList, byte index )
     return s_linkedList->nodes[index].data;
 }
 
-bool SortedLinkedList_updateData( SortedLinkedList_t* s_linkedList, byte index, void* newData )
+bool SortedLinkedListWithID_updateData( SortedLinkedListWithID_t* s_linkedList, byte index, void* newData )
 {
     if( index > (s_linkedList->length - 1) )
         return false;
@@ -236,24 +254,25 @@ bool SortedLinkedList_updateData( SortedLinkedList_t* s_linkedList, byte index, 
     return true;
 }
 
-bool SortedLinkedList_isEmpty( SortedLinkedList_t* s_linkedList )
+bool SortedLinkedListWithID_isEmpty( SortedLinkedListWithID_t* s_linkedList )
 {
     return s_linkedList->head EQUAL -1 ? true : false;
 }
 
-byte SortedLinkedList_length( SortedLinkedList_t* s_linkedList )
+byte SortedLinkedListWithID_length( SortedLinkedListWithID_t* s_linkedList )
 {
     return s_linkedList->length;
 }
 
-void SortedLinkedList_clean( SortedLinkedList_t* s_linkedList )
+void SortedLinkedListWithID_clean( SortedLinkedListWithID_t* s_linkedList )
 {
     if( s_linkedList->needToBeFreed )
         free(s_linkedList->nodes);
 
     else
-        memset( s_linkedList->nodes, 0, (s_linkedList->length * sizeof(SortedLinkedList_Node_t)) );
+        memset( s_linkedList->nodes, 0, (s_linkedList->length * sizeof(SortedLinkedListWithID_Node_t)) );
 
     s_linkedList->head = -1;
     s_linkedList->tail = -1;
+    s_linkedList->id   = -1;
 }
