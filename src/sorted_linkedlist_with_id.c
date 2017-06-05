@@ -157,7 +157,6 @@ void* SortedLinkedListWithID_popHead( SortedLinkedListWithID_t* s_linkedList )
     head_node->data = NULL;
     head_node->next = 0;
     head_node->prev = 0;
-    head_node->id   = 0;
 
     return data;
 }
